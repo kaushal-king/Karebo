@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".BarcodeScan">
+
+    <LinearLayout
+        android:id="@+id/ll_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/yellow"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="83 G ,STELLENBOSCH"
+            android:background="@color/yellow"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"
+            app:layout_constrainedWidth="true"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_address"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="@dimen/_20sdp"-->
+<!--        android:fontFamily="@font/roboto_medium"-->
+<!--        android:text="83 G ,STELLENBOSCH"-->
+<!--        android:textSize="@dimen/_12sdp"-->
+<!--        android:background="@color/yellow"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constrainedWidth="true"-->
+<!--        android:textStyle="bold"-->
+<!--        android:layout_marginStart="@dimen/_10sdp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.08"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+
+
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:id="@+id/scanner_barcode"
+        android:layout_width="@dimen/_240sdp"
+        android:layout_height="@dimen/_240sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:autoFocusButtonColor="@android:color/white"
+        app:autoFocusButtonVisible="true"
+        app:flashButtonColor="@android:color/white"
+        app:flashButtonVisible="true"
+        app:frameAspectRatioHeight="1"
+        app:frameAspectRatioWidth="1"
+        app:frameColor="@android:color/white"
+        app:frameCornersRadius="0dp"
+        app:frameCornersSize="50dp"
+        app:frameSize="0.75"
+        app:frameThickness="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_text"
+        app:maskColor="#77000000" />
+
+    <TextView
+        android:id="@+id/qr_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="please scan bar code of card"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="@+id/scanner_barcode"
+        app:layout_constraintStart_toStartOf="@+id/scanner_barcode"
+        app:layout_constraintTop_toBottomOf="@+id/scanner_barcode" />
+
+
+    <TextView
+        android:id="@+id/tv_barcode_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="please scan bar code of card"
+        android:textColor="@color/black"
+        android:visibility="invisible"
+        android:textStyle="bold"
+        android:textSize="@dimen/_18sdp"
+        app:layout_constraintEnd_toEndOf="@+id/scanner_barcode"
+        app:layout_constraintStart_toStartOf="@+id/scanner_barcode"
+        app:layout_constraintTop_toBottomOf="@+id/qr_details" />
+
+
+    <Button
+        android:id="@+id/bt_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:background="@drawable/search_cor"
+        android:fontFamily="@font/roboto_medium"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:visibility="invisible"
+        android:text="Submit"
+        android:textSize="@dimen/_16sdp"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_barcode_number" />
+
+
+    <Button
+        android:id="@+id/bt_skip"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:background="@drawable/search_cor"
+        android:fontFamily="@font/roboto_medium"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="Skip"
+        android:textSize="@dimen/_16sdp"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_next" />
+</androidx.constraintlayout.widget.ConstraintLayout>

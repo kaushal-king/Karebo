@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Karebo/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1155" />
+        <entry key="..\:/Karebo/app/src/main/res/drawable/cardripple.xml" value="0.1155" />
+        <entry key="..\:/Karebo/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1155" />
+        <entry key="..\:/Karebo/app/src/main/res/drawable/questionback.xml" value="0.1165" />
+        <entry key="..\:/Karebo/app/src/main/res/drawable/questionwithoutpadding.xml" value="0.1165" />
+        <entry key="..\:/Karebo/app/src/main/res/drawable/ripplebutton.xml" value="0.1155" />
+        <entry key="..\:/Karebo/app/src/main/res/drawable/search.xml" value="0.1155" />
+        <entry key="..\:/Karebo/app/src/main/res/drawable/search_cor.xml" value="0.1165" />
+        <entry key="..\:/Karebo/app/src/main/res/drawable/search_cor_red.xml" value="0.1165" />
+        <entry key="..\:/Karebo/app/src/main/res/drawable/select_button.xml" value="0.1165" />
+        <entry key="..\:/Karebo/app/src/main/res/drawable/side_nav_bar.xml" value="0.1165" />
+        <entry key="..\:/Karebo/app/src/main/res/drawable/splash_background.xml" value="0.1155" />
+        <entry key="..\:/Karebo/app/src/main/res/drawable/splash_bg_color.xml" value="0.1155" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/activity_drawer.xml" value="0.1" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/activity_main.xml" value="0.13114035087719297" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/activity_splash.xml" value="0.13114035087719297" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/activity_splesh2.xml" value="0.13114035087719297" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/app_bar_drawer.xml" value="0.1" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/content_drawer.xml" value="0.13114035087719297" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/dialog_loader.xml" value="0.12017543859649123" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/dialog_submitmeter.xml" value="0.14385964912280702" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_about.xml" value="0.15281385281385282" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_access_status.xml" value="0.176" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_audit_photo.xml" value="0.15281385281385282" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_barcode_scan.xml" value="0.15281385281385282" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_chart.xml" value="0.1" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_customer_feedback.xml" value="0.2" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_listfragment.xml" value="0.15281385281385282" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_mapfragment.xml" value="0.15281385281385282" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_meter_audit.xml" value="0.15281385281385282" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_meter_information_form.xml" value="0.15281385281385282" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_meter_location.xml" value="0.15281385281385282" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_occupancy.xml" value="0.2" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_otp_screen.xml" value="0.15281385281385282" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_questions.xml" value="0.15281385281385282" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_signature.xml" value="0.1" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_slideshow.xml" value="0.15482456140350878" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_tid_process.xml" value="0.15281385281385282" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_tid_process2.xml" value="0.1" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_tid_process_two.xml" value="0.15281385281385282" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/fragment_trip_test.xml" value="0.15281385281385282" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/layout_complete_job.xml" value="0.2" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/layout_meteraudit.xml" value="0.176" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/layout_question.xml" value="0.15281385281385282" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/layout_signature.xml" value="0.1" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/nav_header_drawer.xml" value="0.14298245614035088" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_12" default="true" project-jdk-name="12" project-jdk-type="JavaSDK" />
+</project>

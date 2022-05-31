@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_about">
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.karebo.teamapp.ui.About.AboutFragment"
+        android:label="KareboTeamApp"
+        tools:layout="@layout/fragment_about" >
+        <action
+            android:id="@+id/action_nav_about_to_nav_question"
+            app:destination="@id/nav_question" />
+        <action
+            android:id="@+id/action_nav_about_to_nav_otpscreen"
+            app:destination="@id/nav_otpscreen" />
+        <action
+            android:id="@+id/action_nav_about_to_nav_meteraudit"
+            app:destination="@id/nav_meteraudit" />
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.karebo.teamapp.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+
+
+    <fragment
+        android:id="@+id/nav_question"
+        android:name="com.karebo.teamapp.Questions"
+        android:label="@string/menu_question"
+        tools:layout="@layout/fragment_questions" >
+        <action
+            android:id="@+id/action_nav_question_to_nav_otpscreen"
+            app:destination="@id/nav_otpscreen" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_otpscreen"
+        android:name="com.karebo.teamapp.OtpScreen"
+        android:label="@string/menu_otp"
+        tools:layout="@layout/fragment_otp_screen" >
+        <action
+            android:id="@+id/action_nav_otpscreen_to_nav_meteraudit"
+            app:destination="@id/nav_meteraudit" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_question"
+            android:id="@+id/action_nav_otpscreen_to_nav_question"
+            app:destination="@id/nav_question" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_meteraudit"
+        android:name="com.karebo.teamapp.MeterAudit"
+        android:label="@string/menu_meteraudit"
+        tools:layout="@layout/fragment_meter_audit" >
+        <action
+            android:id="@+id/action_nav_meteraudit_to_nav_auditphoto"
+            app:destination="@id/nav_auditphoto" />
+        <action
+            android:id="@+id/action_nav_meteraudit_to_nav_otpscreen"
+            app:destination="@id/nav_otpscreen" />
+        <action
+            android:id="@+id/action_nav_meteraudit_self"
+            app:destination="@id/nav_meteraudit" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_auditphoto"
+        android:name="com.karebo.teamapp.AuditPhoto"
+        android:label="@string/menu_meteraudit"
+        tools:layout="@layout/fragment_audit_photo" >
+        <action
+            android:id="@+id/action_nav_auditphoto_to_nav_accessstatus"
+            app:destination="@id/nav_accessstatus" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_accessstatus"
+        android:name="com.karebo.teamapp.AccessStatus"
+        android:label="@string/menu_accessstatus"
+        tools:layout="@layout/fragment_access_status" >
+        <action
+            android:id="@+id/action_nav_accessstatus_to_nav_meterlocation"
+            app:destination="@id/nav_meterlocation" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_meteraudit"
+            android:id="@+id/action_nav_accessstatus_to_nav_meteraudit"
+            app:destination="@id/nav_meteraudit" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_meterlocation"
+        android:name="com.karebo.teamapp.MeterLocation"
+        android:label="@string/menu_accessstatus"
+        tools:layout="@layout/fragment_meter_location" >
+        <action
+            android:id="@+id/action_nav_meterlocation_to_nav_barcodescan"
+            app:destination="@id/nav_barcodescan" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_barcodescan"
+        android:name="com.karebo.teamapp.BarcodeScan"
+        android:label="@string/menu_accessstatus"
+        tools:layout="@layout/fragment_barcode_scan" >
+
+        <action
+            android:id="@+id/action_nav_barcodescan_to_nav_tidprocessone"
+            app:destination="@id/nav_tidprocessone" />
+    </fragment>
+
+
+
+
+    <fragment
+        android:id="@+id/nav_tidprocessone"
+        android:name="com.karebo.teamapp.TidProcessOne"
+        android:label="@string/menu_tipprocessone"
+        tools:layout="@layout/fragment_tid_process" >
+
+        <action
+            android:id="@+id/action_nav_tidprocessone_to_nav_triptest"
+            app:destination="@id/nav_triptest" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_occupancy"
+        android:name="com.karebo.teamapp.Occupancy"
+        android:label="@string/menu_occupancy"
+        tools:layout="@layout/fragment_occupancy" >
+
+        <action
+            android:id="@+id/action_nav_occupancy_to_nav_customerfeedback"
+            app:destination="@id/nav_customerfeedback" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_triptest"
+        android:name="com.karebo.teamapp.TripTest"
+        android:label="@string/menu_triptest"
+        tools:layout="@layout/fragment_trip_test" >
+
+        <action
+            android:id="@+id/action_nav_triptest_to_nav_occupancy"
+            app:destination="@id/nav_occupancy" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_customerfeedback"
+        android:name="com.karebo.teamapp.CustomerFeedback"
+        android:label="@string/menu_customerfeedback"
+        tools:layout="@layout/fragment_customer_feedback" >
+
+        <action
+            android:id="@+id/action_nav_customerfeedback_to_nav_signature"
+            app:destination="@id/nav_signature" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_signature"
+        android:name="com.karebo.teamapp.Signature"
+        android:label="@string/menu_customerfeedback"
+        tools:layout="@layout/fragment_signature" >
+
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_accessstatus"
+            android:id="@+id/action_nav_signature_to_nav_accessstatus"
+            app:destination="@id/nav_accessstatus" />
+    </fragment>
+</navigation>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MeterInformationForm">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="83 G ,STELLENBOSCH"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/black"
+            app:layout_constrainedWidth="true"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+        <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_weight="1.5"
+        android:background="@drawable/questionback"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/tv_address"
+        tools:layout_editor_absoluteX="26dp">
+
+        <Spinner
+            android:id="@+id/sp_meter_status"
+            android:layout_width="match_parent"
+            android:spinnerMode="dialog"
+            android:layout_height="wrap_content"
+            android:entries="@array/meterstatus" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_weight="1.5"
+        android:background="@drawable/questionback"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:layout_editor_absoluteX="26dp">
+
+        <Spinner
+            android:id="@+id/sp_meter_code"
+            android:layout_width="match_parent"
+            android:spinnerMode="dialog"
+            android:layout_height="wrap_content"
+            android:entries="@array/metercode" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_number"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:background="@drawable/questionback"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="left"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:hint="1234567"
+        android:padding="@dimen/_8sdp"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <EditText
+        android:id="@+id/et_serial_number"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:background="@drawable/questionback"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="left"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:hint="Serial Number 2"
+        android:padding="@dimen/_8sdp"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_number" />
+
+    <EditText
+        android:id="@+id/et_credit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:background="@drawable/questionback"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="left"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:hint="Credits"
+        android:padding="@dimen/_8sdp"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_serial_number" />
+
+    <EditText
+        android:id="@+id/et_nn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:background="@drawable/questionback"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="left"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:hint="1"
+        android:padding="@dimen/_8sdp"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_credit" />
+
+
+
+        <Button
+        android:id="@+id/bt_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:background="@drawable/search_cor"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Next"
+        android:textSize="@dimen/_16sdp"
+        app:backgroundTint="@null"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_nn" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

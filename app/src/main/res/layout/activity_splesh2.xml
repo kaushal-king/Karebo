@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".splesh2"
+    android:gravity="center"
+    android:background="@drawable/splash_bg_color"
+    android:orientation="vertical">
+<TextView
+    android:layout_width="@dimen/_200sdp"
+    android:layout_height="@dimen/_200sdp"
+    android:text="karebo"
+    android:textAlignment="center"
+    android:gravity="center"
+    android:textColor="@color/yellow"
+    android:fontFamily="@font/roboto_medium"
+    android:textSize="@dimen/_50sdp"
+    android:layout_marginTop="@dimen/_100sdp"/>
+    <ProgressBar
+        android:layout_marginTop="@dimen/_90sdp"
+        android:id="@+id/progress"
+        android:indeterminateTint="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Team App 2022"
+        android:textColor="@color/white"
+        android:gravity="bottom"
+        android:fontFamily="@font/roboto_medium"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:textSize="@dimen/_15sdp"
+        />
+</LinearLayout>

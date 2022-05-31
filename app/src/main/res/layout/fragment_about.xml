@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.About.AboutFragment" >
+
+
+    <EditText
+        android:id="@+id/et_team_key"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:background="@drawable/text_search"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="left"
+        android:hint="Team Key"
+        android:padding="@dimen/_8sdp"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Team Key should be 10 character"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:fontFamily="@font/roboto_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toStartOf="@+id/et_team_key"
+        app:layout_constraintTop_toBottomOf="@+id/et_team_key" />
+<!--    <Button-->
+<!--        android:id="@+id/bt_verify"-->
+<!--        android:layout_width="@dimen/_130sdp"-->
+<!--        android:layout_height="@dimen/_40sdp"-->
+<!--        android:background="@drawable/search_cor"-->
+<!--        android:fontFamily="@font/poppins_medium"-->
+<!--        android:text="Verify Device"-->
+<!--        -->
+<!--        android:layout_marginTop="@dimen/_20sdp"-->
+<!--        app:backgroundTint="@null"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/et_team_key"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/et_team_key"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tv_msg" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

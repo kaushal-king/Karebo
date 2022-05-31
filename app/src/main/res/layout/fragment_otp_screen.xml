@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <EditText
+        android:id="@+id/et_otp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:background="@drawable/text_search"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="left"
+        android:hint="PIN"
+        android:padding="@dimen/_8sdp"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bt_load_job_card"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@drawable/search_cor"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Load Job Cards"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="@+id/et_otp"
+        app:layout_constraintStart_toStartOf="@+id/et_otp"
+        app:layout_constraintTop_toBottomOf="@+id/et_otp" />
+
+    <TextView
+        android:id="@+id/tv_otp_sent_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="PIN sent to Mobile device"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="@+id/et_otp"
+        app:layout_constraintStart_toStartOf="@+id/et_otp"
+        app:layout_constraintTop_toBottomOf="@+id/bt_load_job_card" />
+
+
+    <TextView
+        android:id="@+id/tv_otp_sent_message2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/roboto_medium"
+
+        app:layout_constrainedWidth="true"
+        android:text="Sent at 09:06:20. if you don't get it in next 2 minutes"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="@+id/et_otp"
+        app:layout_constraintStart_toStartOf="@+id/et_otp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_otp_sent_message" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_resend_otp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_weight="1.5"
+        android:clickable="true"
+        android:background="@drawable/questionwithoutpadding"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintStart_toStartOf="@+id/et_otp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_otp_sent_message2">
+        <TextView
+android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Resend PIN"
+            android:textColor="@color/black"
+
+            android:textSize="@dimen/_16sdp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

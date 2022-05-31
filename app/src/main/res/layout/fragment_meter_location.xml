@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/map_scroll_view"
+    tools:context=".MeterLocation">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/ll_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/yellow"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="83 G ,STELLENBOSCH"
+            android:background="@color/yellow"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"
+            app:layout_constrainedWidth="true"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_address"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="@dimen/_20sdp"-->
+<!--        android:fontFamily="@font/roboto_medium"-->
+<!--        android:text="83 G ,STELLENBOSCH"-->
+<!--        android:textSize="@dimen/_12sdp"-->
+<!--        android:background="@color/yellow"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constrainedWidth="true"-->
+<!--        android:textStyle="bold"-->
+<!--        android:layout_marginStart="@dimen/_10sdp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.08"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+
+
+
+    <fragment
+        android:id="@+id/map_view"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_280sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_text" />
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_weight="1.5"
+        android:background="@drawable/questionback"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/map_view"
+        tools:layout_editor_absoluteX="26dp">
+
+        <Spinner
+            android:id="@+id/sp_map_marker"
+            android:layout_width="match_parent"
+            android:spinnerMode="dialog"
+            android:layout_height="wrap_content"
+            android:entries="@array/mapmarker" />
+    </LinearLayout>
+
+
+
+    <EditText
+        android:id="@+id/et_map_description"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:background="@drawable/questionback"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="left"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:hint="Description"
+        android:padding="@dimen/_8sdp"
+        android:textSize="@dimen/_15sdp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+    <Button
+        android:id="@+id/bt_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:background="@drawable/search_cor"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Next : Scan Barcode"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:textSize="@dimen/_16sdp"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_map_description" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
