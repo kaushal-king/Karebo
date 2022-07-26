@@ -81,6 +81,16 @@
         <action
             android:id="@+id/action_nav_auditphoto_to_nav_accessstatus"
             app:destination="@id/nav_accessstatus" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_meteraudit"
+            android:id="@+id/action_nav_auditphoto_to_nav_meteraudit"
+            app:destination="@id/nav_meteraudit" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_about"
+            android:id="@+id/action_nav_auditphoto_to_nav_about"
+            app:destination="@id/nav_about" />
     </fragment>
 
 
@@ -97,6 +107,12 @@
             app:popUpTo="@id/nav_meteraudit"
             android:id="@+id/action_nav_accessstatus_to_nav_meteraudit"
             app:destination="@id/nav_meteraudit" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_about"
+            android:id="@+id/action_nav_accessstatus_to_nav_about"
+            app:destination="@id/nav_about" />
+
     </fragment>
     <fragment
         android:id="@+id/nav_meterlocation"
@@ -106,6 +122,16 @@
         <action
             android:id="@+id/action_nav_meterlocation_to_nav_barcodescan"
             app:destination="@id/nav_barcodescan" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_meteraudit"
+            android:id="@+id/action_nav_meterlocation_to_nav_meteraudit"
+            app:destination="@id/nav_meteraudit" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_about"
+            android:id="@+id/action_nav_meterlocation_to_nav_about"
+            app:destination="@id/nav_about" />
     </fragment>
     <fragment
         android:id="@+id/nav_barcodescan"
@@ -116,6 +142,16 @@
         <action
             android:id="@+id/action_nav_barcodescan_to_nav_tidprocessone"
             app:destination="@id/nav_tidprocessone" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_meteraudit"
+            android:id="@+id/action_nav_barcodescan_to_nav_meteraudit"
+            app:destination="@id/nav_meteraudit" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_about"
+            android:id="@+id/action_nav_barcodescan_to_nav_about"
+            app:destination="@id/nav_about" />
     </fragment>
 
 
@@ -130,6 +166,19 @@
         <action
             android:id="@+id/action_nav_tidprocessone_to_nav_triptest"
             app:destination="@id/nav_triptest" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_meteraudit"
+            android:id="@+id/action_nav_tidprocessone_to_nav_meteraudit"
+            app:destination="@id/nav_meteraudit" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_about"
+            android:id="@+id/action_nav_tidprocessone_to_nav_about"
+            app:destination="@id/nav_about" />
+        <action
+            android:id="@+id/action_nav_tidprocessone_to_nav_occupancy"
+            app:destination="@id/nav_occupancy" />
     </fragment>
     <fragment
         android:id="@+id/nav_occupancy"
@@ -140,6 +189,16 @@
         <action
             android:id="@+id/action_nav_occupancy_to_nav_customerfeedback"
             app:destination="@id/nav_customerfeedback" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_meteraudit"
+            android:id="@+id/action_nav_occupancy_to_nav_meteraudit"
+            app:destination="@id/nav_meteraudit" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_about"
+            android:id="@+id/action_nav_occupancy_to_nav_about"
+            app:destination="@id/nav_about" />
     </fragment>
     <fragment
         android:id="@+id/nav_triptest"
@@ -150,6 +209,16 @@
         <action
             android:id="@+id/action_nav_triptest_to_nav_occupancy"
             app:destination="@id/nav_occupancy" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_meteraudit"
+            android:id="@+id/action_nav_triptest_to_nav_meteraudit"
+            app:destination="@id/nav_meteraudit" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_about"
+            android:id="@+id/action_nav_triptest_to_nav_about"
+            app:destination="@id/nav_about" />
     </fragment>
     <fragment
         android:id="@+id/nav_customerfeedback"
@@ -160,6 +229,16 @@
         <action
             android:id="@+id/action_nav_customerfeedback_to_nav_signature"
             app:destination="@id/nav_signature" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_meteraudit"
+            android:id="@+id/action_nav_customerfeedback_to_nav_meteraudit"
+            app:destination="@id/nav_meteraudit" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_about"
+            android:id="@+id/action_nav_customerfeedback_to_nav_about"
+            app:destination="@id/nav_about" />
     </fragment>
 
     <fragment
@@ -173,5 +252,15 @@
             app:popUpTo="@id/nav_accessstatus"
             android:id="@+id/action_nav_signature_to_nav_accessstatus"
             app:destination="@id/nav_accessstatus" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_meteraudit"
+            android:id="@+id/action_nav_signature_to_nav_meteraudit"
+            app:destination="@id/nav_meteraudit" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_about"
+            android:id="@+id/action_nav_signature_to_nav_about"
+            app:destination="@id/nav_about" />
     </fragment>
 </navigation>

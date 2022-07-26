@@ -71,7 +71,7 @@ class splesh2 : AppCompatActivity() {
 
             override fun onFailure(call: Call<CodeListDataClass>, t: Throwable) {
                 Log.e("TAG", "onFailure: "+t.localizedMessage, )
-                Toast.makeText(this@splesh2, "Network Error", Toast.LENGTH_SHORT)
+                Toast.makeText(this@splesh2, "offline Mode", Toast.LENGTH_SHORT)
                     .show()
 
 

@@ -384,7 +384,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1.5"
             android:background="@drawable/questionback"
-            android:gravity="center">
+            android:gravity="center"
+            >
 
             <Switch
                 android:id="@+id/sw_is_solar_water_heater"
@@ -395,6 +396,65 @@
         </LinearLayout>
 
     </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_submeter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_is_solar_water_heater"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.3"
+            android:background="@drawable/questionback"
+            android:backgroundTint="#E4E1E1">
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Sub Meter "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/questionback"
+            android:gravity="center">
+
+            <Spinner
+                android:id="@+id/sp_submeter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:entries="@array/submeter" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/custome_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/ll_submeter">
+
+    </LinearLayout>
+
+
+
     <Button
         android:id="@+id/bt_next"
         android:layout_width="match_parent"
@@ -410,7 +470,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_is_solar_water_heater" />
+        app:layout_constraintTop_toBottomOf="@+id/custome_view" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

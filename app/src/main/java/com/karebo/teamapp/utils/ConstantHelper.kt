@@ -6,6 +6,7 @@ import android.util.Base64
 import com.karebo.teamapp.dataclass.meterauditDataModel
 import com.karebo.teamapp.dataclass.photoUploadDataClass
 import com.karebo.teamapp.dataclass.questionDataModel
+import com.karebo.teamapp.dataclass.subMeterModel
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -16,9 +17,11 @@ object ConstantHelper {
 
     const val NETWORK_CONNECT="connect"
     const val NETWORK_LOST="lost"
+    const val NOTIFICATION_CHANNEL_ID="com.the"
     const val SHARED_PREFERENCE_ID="MyPrefsTheme"
     var ADDRESS=""
     var SERIAL=""
+    var PREPAID = true
 
     var PropertyPictureUUID=""
     var MeterScanUUID=""
@@ -32,6 +35,9 @@ object ConstantHelper {
     var KRNPictureUUID=""
     var Last5TokenScreenshotUUID=""
 
+    var subMeter: MutableList<subMeterModel> = mutableListOf()
+
+
     lateinit var currentSelectd:meterauditDataModel
 
 
@@ -41,6 +47,7 @@ object ConstantHelper {
     var meterModelJson = JSONObject()
     var Components = JSONObject()
     var Feedback = JSONObject()
+    var Duration = JSONObject()
 
 
 

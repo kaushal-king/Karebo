@@ -21,5 +21,7 @@ class meterauditDataModel(
     @SerializedName("cardType")
     var cardType: String? = null,
     @SerializedName("municipality")
-    var municipality: String? = null
+    var municipality: String? = null,
+    @SerializedName("parcelAddress")
+    var address: String? = null
     )

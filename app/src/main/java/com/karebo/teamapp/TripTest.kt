@@ -11,9 +11,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.CompoundButton
 import android.widget.ScrollView
 import android.widget.Toast
@@ -34,6 +32,7 @@ import com.karebo.teamapp.Api.ApiClient
 import com.karebo.teamapp.databinding.FragmentTripTestBinding
 import com.karebo.teamapp.dataclass.photoUploadDataClass
 import com.karebo.teamapp.utils.LoaderHelper
+import com.the.firsttask.sharedpreference.SharedPreferenceHelper
 import com.the.firsttask.utils.ConstantHelper
 import okhttp3.ResponseBody
 import org.json.JSONArray
@@ -69,6 +68,7 @@ class TripTest : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         locationPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 if (!permissions.containsValue(false)) {
@@ -198,10 +198,59 @@ class TripTest : Fragment() {
 
 
         binding.btNext.setOnClickListener{
-            addInModel()
-            Navigation.findNavController(root).navigate(
-                R.id.action_nav_triptest_to_nav_occupancy,
-            )
+            if(ConstantHelper.PREPAID){
+                if(binding.swTampering.isChecked && PhototampringFile==null){
+                    if(PhototampringFile==null){
+                        Toast.makeText(requireContext(),"Add Temper Picture ",Toast.LENGTH_SHORT).show()
+                    }
+                }
+                else if(binding.swReplaceSeals.isChecked &&
+                    (
+                            ( binding.etNewSealNumber1.text.isEmpty()  ||binding.etNewSealNumber1.text.equals(null))
+                                    ||( binding.etNewSealNumber2.text.isEmpty()  ||binding.etNewSealNumber2.text.equals(null))
+                            )
+                )
+                {
+                    if( binding.etNewSealNumber1.text.isEmpty()  ||binding.etNewSealNumber1.text.equals(null))
+                    {
+                        Toast.makeText(requireContext(),"Give New Seal number 1 ",Toast.LENGTH_SHORT).show()
+                    }
+                    if( binding.etNewSealNumber2.text.isEmpty()  ||binding.etNewSealNumber2.text.equals(null)){
+                        Toast.makeText(requireContext(),"Give New Seal number 2 ",Toast.LENGTH_SHORT).show()
+                    }
+                }
+                else if( binding.etSealNumber1.text.isEmpty()  ||binding.etSealNumber1.text.equals(null)){
+                    Toast.makeText(requireContext(),"Give Existing Seal number 1 ",Toast.LENGTH_SHORT).show()
+
+                }
+                else if( binding.etSealNumber2.text.isEmpty()  ||binding.etSealNumber2.text.equals(null)){
+                    Toast.makeText(requireContext(),"Give Existing Seal number 2 ",Toast.LENGTH_SHORT).show()
+
+                }
+                else{
+                    addInModel()
+                    Navigation.findNavController(root).navigate(
+                        R.id.action_nav_triptest_to_nav_occupancy,
+                    )
+                }
+            }else{
+                 if( binding.etSealNumber1.text.isEmpty()  ||binding.etSealNumber1.text.equals(null)){
+                    Toast.makeText(requireContext(),"Give Existing Seal number 1 ",Toast.LENGTH_SHORT).show()
+
+                }
+                else if( binding.etSealNumber2.text.isEmpty()  ||binding.etSealNumber2.text.equals(null)){
+                    Toast.makeText(requireContext(),"Give Existing Seal number 2 ",Toast.LENGTH_SHORT).show()
+
+                }
+                else{
+                    addInModel()
+                    Navigation.findNavController(root).navigate(
+                        R.id.action_nav_triptest_to_nav_occupancy,
+                    )
+                }
+            }
+
+
         }
 
 
@@ -241,33 +290,70 @@ class TripTest : Fragment() {
          var ReplacementSealNumbers = JSONObject()
          var TamperPictures = JSONArray()
 
-         TripTest.put("ResetCode","5649 3153 7254 5031 3471")
-         TripTest.put("VoltageStickBeep",binding.swStickBeep.isChecked)
-         TripTest.put("MajorAppliancesOff",binding.swMajorAppliance.isChecked)
 
-         SealNumbers.put("Seal Number 1",binding.etSealNumber1.text.toString())
-         SealNumbers.put("Seal Number 2",binding.etSealNumber2.text.toString())
-         TripTest.put("SealNumbers",SealNumbers)
+         if(ConstantHelper.PREPAID){
+             TripTest.put("ResetCode","5649 3153 7254 5031 3471")
+             TripTest.put("VoltageStickBeep",binding.swStickBeep.isChecked)
+             TripTest.put("MajorAppliancesOff",binding.swMajorAppliance.isChecked)
 
-         TripTest.put("SealReplaced",binding.swReplaceSeals.isChecked)
-         ReplacementSealNumbers.put("Seal Number 1",binding.etNewSealNumber1.text)
-         ReplacementSealNumbers.put("Seal Number 2",binding.etNewSealNumber2.text)
-         TripTest.put("ReplacementSealNumbers",ReplacementSealNumbers)
+             SealNumbers.put("Seal Number 1",binding.etSealNumber1.text.toString())
+             SealNumbers.put("Seal Number 2",binding.etSealNumber2.text.toString())
+             TripTest.put("SealNumbers",SealNumbers)
 
-         if(ConstantHelper.TamperedWiresUUID!=""){
-             TamperPictures.put(ConstantHelper.TamperedWiresUUID)
-         }
-         if(ConstantHelper.TamperedWires2UUID!=""){
-             TamperPictures.put(ConstantHelper.TamperedWires2UUID)
-         }
-         if(ConstantHelper.TamperedWires3UUID!=""){
-             TamperPictures.put(ConstantHelper.TamperedWires3UUID)
-         }
+             TripTest.put("SealReplaced",binding.swReplaceSeals.isChecked)
+             ReplacementSealNumbers.put("Seal Number 1",binding.etNewSealNumber1.text)
+             ReplacementSealNumbers.put("Seal Number 2",binding.etNewSealNumber2.text)
+             TripTest.put("ReplacementSealNumbers",ReplacementSealNumbers)
+
+             if(ConstantHelper.TamperedWiresUUID!=""){
+                 TamperPictures.put(ConstantHelper.TamperedWiresUUID)
+             }
+             if(ConstantHelper.TamperedWires2UUID!=""){
+                 TamperPictures.put(ConstantHelper.TamperedWires2UUID)
+             }
+             if(ConstantHelper.TamperedWires3UUID!=""){
+                 TamperPictures.put(ConstantHelper.TamperedWires3UUID)
+             }
 
 //         TamperPictures.put(ConstantHelper.TamperedWiresUUID)
-         TripTest.put("TamperPictures",TamperPictures)
+             TripTest.put("TamperPictures",TamperPictures)
 
-         TripTest.put("PowerLimitSettings", binding.spPowerLimit.selectedItem.toString().toInt())
+             TripTest.put("PowerLimitSettings", binding.spPowerLimit.selectedItem.toString().toInt())
+
+
+         }else{
+
+             TripTest.put("ResetCode","5649 3153 7254 5031 3471")
+             TripTest.put("VoltageStickBeep","")
+             TripTest.put("MajorAppliancesOff","")
+
+             SealNumbers.put("Seal Number 1",binding.etSealNumber1.text.toString())
+             SealNumbers.put("Seal Number 2",binding.etSealNumber2.text.toString())
+             TripTest.put("SealNumbers",SealNumbers)
+
+             TripTest.put("SealReplaced","")
+             ReplacementSealNumbers.put("Seal Number 1","")
+             ReplacementSealNumbers.put("Seal Number 2","")
+             TripTest.put("ReplacementSealNumbers",ReplacementSealNumbers)
+
+//             if(ConstantHelper.TamperedWiresUUID!=""){
+//                 TamperPictures.put(ConstantHelper.TamperedWiresUUID)
+//             }
+//             if(ConstantHelper.TamperedWires2UUID!=""){
+//                 TamperPictures.put(ConstantHelper.TamperedWires2UUID)
+//             }
+//             if(ConstantHelper.TamperedWires3UUID!=""){
+//                 TamperPictures.put(ConstantHelper.TamperedWires3UUID)
+//             }
+
+//         TamperPictures.put(ConstantHelper.TamperedWiresUUID)
+             TripTest.put("TamperPictures",TamperPictures)
+
+             TripTest.put("PowerLimitSettings", "")
+
+
+         }
+
 
          ConstantHelper.Components.put("TripTest",TripTest)
          ConstantHelper.meterModelJson.put("Components", ConstantHelper.Components)
@@ -486,40 +572,50 @@ class TripTest : Fragment() {
 fun showEcerything(){
 
 
-    binding.llStillOn.visibility=View.VISIBLE
-    binding.llSealsBroken.visibility=View.VISIBLE
-    binding.llSealNumber.visibility=View.VISIBLE
-    binding.llSealNumber2.visibility=View.VISIBLE
-    binding.llReplaceSeals.visibility=View.VISIBLE
-    binding.llTampering.visibility=View.VISIBLE
-    binding.llApplianceOff.visibility=View.VISIBLE
-    binding.llPowerLimit.visibility=View.VISIBLE
+    if(ConstantHelper.PREPAID){
+        binding.llStillOn.visibility=View.VISIBLE
+        binding.llSealsBroken.visibility=View.VISIBLE
+        binding.llSealNumber.visibility=View.VISIBLE
+        binding.llSealNumber2.visibility=View.VISIBLE
+        binding.llReplaceSeals.visibility=View.VISIBLE
+        binding.llTampering.visibility=View.VISIBLE
+        binding.llApplianceOff.visibility=View.VISIBLE
+        binding.llPowerLimit.visibility=View.VISIBLE
 
-    if(PhototampringFile!=null || PhototampringFile2!=null||PhototampringFile3!=null){
-        binding.llTemperImages.visibility=View.VISIBLE
-        if(PhototampringFile!=null ){
-            binding.ivTampringPhoto.visibility=View.VISIBLE
+        if(PhototampringFile!=null || PhototampringFile2!=null||PhototampringFile3!=null){
+            binding.llTemperImages.visibility=View.VISIBLE
+            if(PhototampringFile!=null ){
+                binding.ivTampringPhoto.visibility=View.VISIBLE
+            }
+            if(PhototampringFile2!=null ){
+                binding.ivTampringPhoto2.visibility=View.VISIBLE
+            }
+            if(PhototampringFile3!=null ){
+                binding.ivTampringPhoto3.visibility=View.VISIBLE
+            }
         }
-        if(PhototampringFile2!=null ){
-            binding.ivTampringPhoto2.visibility=View.VISIBLE
+        if(binding.swTampering.isChecked){
+            binding.btImgTampring.visibility=View.VISIBLE
+            binding.btImgTampring2.visibility=View.VISIBLE
+            binding.btImgTampring3.visibility=View.VISIBLE
         }
-        if(PhototampringFile3!=null ){
-            binding.ivTampringPhoto3.visibility=View.VISIBLE
+
+        if(binding.swApplianceOff.isChecked){
+            binding.btNext.visibility=View.VISIBLE
+        }
+        if(binding.swReplaceSeals.isChecked){
+            binding.llNewSealNumber1.visibility=View.VISIBLE
+            binding.llNewSealNumber2.visibility=View.VISIBLE
         }
     }
-    if(binding.swTampering.isChecked){
-        binding.btImgTampring.visibility=View.VISIBLE
-        binding.btImgTampring2.visibility=View.VISIBLE
-        binding.btImgTampring3.visibility=View.VISIBLE
-    }
-
-    if(binding.swApplianceOff.isChecked){
+    else{
+        binding.llSealNumber.visibility=View.VISIBLE
+        binding.llSealNumber2.visibility=View.VISIBLE
         binding.btNext.visibility=View.VISIBLE
     }
-    if(binding.swReplaceSeals.isChecked){
-        binding.llNewSealNumber1.visibility=View.VISIBLE
-        binding.llNewSealNumber2.visibility=View.VISIBLE
-    }
+
+
+
 
 }
     fun hideEveryThing()
@@ -547,6 +643,8 @@ fun showEcerything(){
 
 
     }
+
+
 
 
 
@@ -737,6 +835,54 @@ fun showEcerything(){
 //
 //        })
 
+    }
+
+
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.drawer, menu)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_jobcard -> {
+                ConstantHelper. submitMeterDataJSON = JSONObject()
+                ConstantHelper. Meters = JSONObject()
+                ConstantHelper. meterModelJson = JSONObject()
+                ConstantHelper. Components = JSONObject()
+                ConstantHelper. Feedback = JSONObject()
+                ConstantHelper. photoList = mutableListOf()
+                ConstantHelper.Duration = JSONObject()
+
+                ConstantHelper.SERIAL =  ""
+                ConstantHelper. PropertyPictureUUID=""
+                ConstantHelper. ZeroTokenPictureUUID=""
+                ConstantHelper. TamperedWiresUUID=""
+                ConstantHelper. TamperedWires2UUID=""
+                ConstantHelper. TamperedWires3UUID=""
+                ConstantHelper. KRNPictureUUID=""
+                ConstantHelper. Last5TokenScreenshotUUID=""
+                Navigation.findNavController(binding.root).navigate(
+                    R.id.action_nav_triptest_to_nav_meteraudit
+                )
+                true
+            }
+            R.id.action_logout -> {
+
+                SharedPreferenceHelper.getInstance(requireContext()).clearData()
+                Navigation.findNavController(binding.root).navigate(
+                    R.id.action_nav_triptest_to_nav_about
+                )
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

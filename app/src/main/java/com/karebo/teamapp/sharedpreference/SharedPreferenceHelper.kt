@@ -171,6 +171,28 @@ class SharedPreferenceHelper(ctx: Context) {
     }
 
 
+
+
+    fun setAllMeterCode(meterDetails: String?) {
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences(
+            ConstantHelper.SHARED_PREFERENCE_ID,
+            Context.MODE_PRIVATE
+        )
+        val editor = sharedPreferences.edit()
+        editor.putString("meterDetails", meterDetails)
+        editor.apply()
+    }
+
+    fun getAllMeterCode(): String {
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences(
+            ConstantHelper.SHARED_PREFERENCE_ID,
+            Context.MODE_PRIVATE
+        )
+        val meterDetails = sharedPreferences.getString("meterDetails", null)
+        return meterDetails.toString()
+
+    }
+
     fun clearPreferences() {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences(
             ConstantHelper.SHARED_PREFERENCE_ID,
@@ -179,5 +201,13 @@ class SharedPreferenceHelper(ctx: Context) {
         val editor = sharedPreferences.edit()
         editor.clear()
         editor.apply()
+    }
+
+
+
+    fun clearData(){
+        setTeamKey("null")
+        setOtp("null")
+
     }
 }

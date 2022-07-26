@@ -53,6 +53,14 @@ interface Api {
     ): Call<List<meterauditDataModel>>
 
 
+
+    @GET("MeterList")
+    fun MeterList(
+        @Query("pin") pin: Int?,
+        @Query("reset") reset: Boolean?,
+    ): Call<ResponseBody>
+
+
     @GET("Data")
     fun meterData(
         @Query("project") project: String?,
@@ -70,6 +78,13 @@ interface Api {
     @Headers("Content-Type: application/json")
     @POST("Submit")
     fun submitMeter(
+        @Body body: String
+    ): Observable<ResponseBody>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("Submit")
+    fun submitMeter2(
         @Body body: String
     ): Call<ResponseBody>
 

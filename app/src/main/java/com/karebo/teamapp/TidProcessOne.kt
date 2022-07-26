@@ -15,10 +15,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.CompoundButton
@@ -86,6 +83,7 @@ class TidProcessOne : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         locationPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 if (!permissions.containsValue(false)) {
@@ -163,11 +161,96 @@ class TidProcessOne : Fragment() {
 
         binding.btNext.setOnClickListener {
 
-            addInModel()
-            ConstantHelper.SERIAL=binding.etMeterSerialNo.text.toString()
-            Navigation.findNavController(root).navigate(
-                R.id.action_nav_tidprocessone_to_nav_triptest,
+            if(binding.etMeterSerialNo.text.isEmpty()|| binding.etMeterSerialNo.equals(null)){
+                Toast.makeText(requireContext(),"Enter Meter Serail No",Toast.LENGTH_SHORT).show()
+            }
+            else if(binding.spMeterStatus.selectedItemPosition==0){
+                Toast.makeText(requireContext(),"Select Meter status",Toast.LENGTH_SHORT).show()
+
+            }
+
+            else if(binding.spMeterStatus.selectedItemPosition!=3 &&
+                binding.spMeterStatus.selectedItemPosition!=6) {
+
+                if (binding.swPrepraid.isChecked == true) {
+
+                    if (binding.spKrn.selectedItemPosition == 0) {
+                        Toast.makeText(requireContext(), "Select KRN ", Toast.LENGTH_SHORT).show()
+
+                    } else if (binding.spKrn.selectedItemPosition == 1 && (PhotokrnFile == null || PhototokenssFile == null)) {
+
+                        if (PhotokrnFile == null) {
+                            Log.e("TAG", "spKrn call: 2",)
+                            Toast.makeText(
+                                requireContext(),
+                                "Add LCD Screen Photo ",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        if (PhototokenssFile == null) {
+                            Log.e("TAG", "spKrn call: 3",)
+                            Toast.makeText(
+                                requireContext(),
+                                "Add Last 5 Token photo ",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+
+                    } else if (binding.swToken.isChecked && PhototokenFile == null) {
+                        Log.e("TAG", "Token call: ",)
+                        if (PhototokenFile == null) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Add Zero Token photo ",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } else if (PhotokrnFile == null) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Add LCD Screen Photo ",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+
+                        addInModel()
+                        ConstantHelper.SERIAL = binding.etMeterSerialNo.text.toString()
+                        Navigation.findNavController(root).navigate(
+                            R.id.action_nav_tidprocessone_to_nav_triptest,
+                        )
+                    }
+
+                } else {
+
+                    if (PhotokrnFile == null) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Add LCD Screen Photo ",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        addInModel()
+                        ConstantHelper.SERIAL = binding.etMeterSerialNo.text.toString()
+                        Navigation.findNavController(root).navigate(
+                            R.id.action_nav_tidprocessone_to_nav_triptest,
+                        )
+                    }
+
+
+                }
+            }else{
+                addInModel()
+                ConstantHelper.SERIAL = binding.etMeterSerialNo.text.toString()
+                Navigation.findNavController(root).navigate(
+                    R.id.action_nav_tidprocessone_to_nav_occupancy,
                 )
+            }
+
+
+
+
+
         }
 
         binding.btImageLcdKrn.setOnClickListener {
@@ -205,8 +288,6 @@ class TidProcessOne : Fragment() {
             }
         })
 
-
-
         binding.spKrn.setOnItemSelectedListener(object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -239,6 +320,31 @@ class TidProcessOne : Fragment() {
         })
 
 
+
+        binding.spMeterStatus.setOnItemSelectedListener(object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
+
+                if(binding.spMeterStatus.selectedItemPosition ==3){
+                    binding.llMeterStatusResult.visibility=View.GONE
+                }
+                else {
+                    binding.llMeterStatusResult.visibility=View.VISIBLE
+                }
+
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+                hideSignature()
+            }
+        })
+
+
         binding.swToken.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 showTokenImgBtn()
@@ -246,6 +352,14 @@ class TidProcessOne : Fragment() {
             } else {
                 hideTokenImg()
                 hideKrnImg()
+            }
+        })
+
+        binding.swPrepraid.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+              setPrepaidView()
+            } else {
+                setPrepaidView()
             }
         })
 
@@ -314,55 +428,173 @@ class TidProcessOne : Fragment() {
 
 
 
+    fun  setPrepaidView(){
+
+        if(binding.swPrepraid.isChecked==true){
+
+            binding.llKrn.visibility=View.VISIBLE
+            binding.llRollover.visibility=View.VISIBLE
+            binding.llToken.visibility=View.VISIBLE
+            krnAffectWidget(true)
+
+        }else{
+
+            binding.llKrn.visibility=View.GONE
+            binding.llRollover.visibility=View.GONE
+            binding.llToken.visibility=View.GONE
+            krnAffectWidget(false)
+
+        }
+
+
+    }
+
+
+    fun krnAffectWidget(mode:Boolean){
+
+
+        if(binding.swToken.isChecked){
+            if(mode){
+                showTokenImgBtn()
+            }else{
+                hideTokenImg()
+            }
+            hideKrnImg()
+            }
+        else {
+            hideTokenImg()
+            hideKrnImg()
+        }
+
+
+
+        if(mode){
+            if(binding.spKrn.selectedItemPosition ==0){
+                Toast.makeText(requireContext(),"select krn",Toast.LENGTH_LONG).show()
+                hideSignature()
+                hideTokenssImg()
+            }
+            else if(binding.spKrn.selectedItemPosition==1){
+                showSignature()
+                showTokenssbtnImg()
+
+
+            }else if(binding.spKrn.selectedItemPosition==2){
+                hideSignature()
+                hideTokenssImg()
+            }
+        }else{
+            hideSignature()
+            hideTokenssImg()
+        }
+
+    }
 
 
 
     fun addInModel() {
-         var TID = JSONObject()
-         var KRNNumberNPicture = JSONObject()
-         var Last5TokensScreenshot = JSONObject()
-         var ZeroTokenNPicture = JSONObject()
-         var Value = JSONArray()
 
-         var code=findMeterCode()
-         Log.e("TAG", "code  : " + code)
+        if(binding.spMeterStatus.selectedItemPosition==3 &&
+            binding.spMeterStatus.selectedItemPosition==6){
+            var TID = JSONObject()
+            var code=findMeterCode()
+            Log.e("TAG", "code  : " + code)
 
-         ConstantHelper.meterModelJson.put("Code",code)
-         TID.put("MeterStatus",binding.spMeterStatus.selectedItem)
-         TID.put("FaultDescription",binding.etDescription.text)
+            ConstantHelper.PREPAID= binding.swPrepraid.isChecked
 
-         KRNNumberNPicture.put("Key",2)
-         KRNNumberNPicture.put("Value",ConstantHelper.KRNPictureUUID)
-         TID.put("KRNNumberNPicture",KRNNumberNPicture)
+            ConstantHelper.meterModelJson.put("Code",code)
+            TID.put("MeterStatus",binding.spMeterStatus.selectedItem)
+
+            ConstantHelper.Components.put("TID",TID)
+            ConstantHelper.meterModelJson.put("Components", ConstantHelper.Components)
+            Log.e("json at Tid", ConstantHelper.meterModelJson.toString())
+
+        }else{
+
+            var TID = JSONObject()
+            var KRNNumberNPicture = JSONObject()
+            var Last5TokensScreenshot = JSONObject()
+            var ZeroTokenNPicture = JSONObject()
+            var Value = JSONArray()
+
+            var code=findMeterCode()
+            Log.e("TAG", "code  : " + code)
+
+            ConstantHelper.PREPAID= binding.swPrepraid.isChecked
+
+            ConstantHelper.meterModelJson.put("Code",code)
+            TID.put("MeterStatus",binding.spMeterStatus.selectedItem)
+            TID.put("Prepaid",binding.swPrepraid.isChecked)
+            TID.put("FaultDescription",binding.etDescription.text)
+
+            KRNNumberNPicture.put("Key",2)
+            KRNNumberNPicture.put("Value",ConstantHelper.KRNPictureUUID)
+            TID.put("KRNNumberNPicture",KRNNumberNPicture)
 
             var base64=JSONObject.NULL
             try{
                 val drawing: Bitmap = binding.ink.getBitmap(resources.getColor(android.R.color.white))
-                 base64= ConstantHelper.bitmapToBase64(drawing)
+                base64= ConstantHelper.bitmapToBase64(drawing)
             }catch (e:Exception){
 
             }
 
-         TID.put("Last5TokenSignature64",base64)
 
-         Last5TokensScreenshot.put("Key",ConstantHelper.Last5TokenScreenshotUUID)
-         Last5TokensScreenshot.put("Value",Value)
-         TID.put("Last5TokensScreenshot",Last5TokensScreenshot)
+            if(binding.swPrepraid.isChecked==true){
+                TID.put("Last5TokenSignature64",base64)
 
-         TID.put("RolloverStatus",binding.swRollover.isChecked)
-         ZeroTokenNPicture.put("Key",true)
-         ZeroTokenNPicture.put("Value",ConstantHelper.ZeroTokenPictureUUID)
-         TID.put("ZeroTokenNPicture",ZeroTokenNPicture)
+                Last5TokensScreenshot.put("Key",ConstantHelper.Last5TokenScreenshotUUID)
+                Last5TokensScreenshot.put("Value",Value)
 
-         TID.put("CreditUnits",binding.etCredit.text.toString().toInt())
+                ZeroTokenNPicture.put("Key",true)
+                ZeroTokenNPicture.put("Value",ConstantHelper.ZeroTokenPictureUUID)
+            }
+            else{
+                TID.put("Last5TokenSignature64","")
 
-         ConstantHelper.Components.put("TID",TID)
-         ConstantHelper.meterModelJson.put("Components", ConstantHelper.Components)
-         Log.e("json at Tid", ConstantHelper.meterModelJson.toString())
+                Last5TokensScreenshot.put("Key","")
+                Last5TokensScreenshot.put("Value","")
+
+                ZeroTokenNPicture.put("Key",false)
+                ZeroTokenNPicture.put("Value","")
+            }
+
+
+
+
+
+            TID.put("Last5TokensScreenshot",Last5TokensScreenshot)
+
+            TID.put("RolloverStatus",binding.swRollover.isChecked)
+
+            TID.put("ZeroTokenNPicture",ZeroTokenNPicture)
+
+            TID.put("CreditUnits",binding.etCredit.text.toString().toDouble())
+
+            ConstantHelper.Components.put("TID",TID)
+            ConstantHelper.meterModelJson.put("Components", ConstantHelper.Components)
+            Log.e("json at Tid", ConstantHelper.meterModelJson.toString())
+
+        }
+
+
+
+
+
+
+
     }
 
     fun setApiData() {
 
+
+
+
+
+
+
+
+//
         var data=SharedPreferenceHelper.getInstance(requireContext()).getMeterData()
         var jsonData=  GsonParser.gsonParser!!.fromJson(data, MeterDataModel::class.java)
             if(jsonData!=null){
@@ -948,6 +1180,52 @@ class TidProcessOne : Fragment() {
     }
 
 
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.drawer, menu)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_jobcard -> {
+                ConstantHelper. submitMeterDataJSON = JSONObject()
+                ConstantHelper. Meters = JSONObject()
+                ConstantHelper. meterModelJson = JSONObject()
+                ConstantHelper. Components = JSONObject()
+                ConstantHelper. Feedback = JSONObject()
+                ConstantHelper. photoList = mutableListOf()
+                ConstantHelper.Duration = JSONObject()
+
+                ConstantHelper.SERIAL =  ""
+                ConstantHelper. PropertyPictureUUID=""
+                ConstantHelper. ZeroTokenPictureUUID=""
+                ConstantHelper. TamperedWiresUUID=""
+                ConstantHelper. TamperedWires2UUID=""
+                ConstantHelper. TamperedWires3UUID=""
+                ConstantHelper. KRNPictureUUID=""
+                ConstantHelper. Last5TokenScreenshotUUID=""
+                Navigation.findNavController(binding.root).navigate(
+                    R.id.action_nav_tidprocessone_to_nav_meteraudit
+                )
+                true
+            }
+            R.id.action_logout -> {
+
+                SharedPreferenceHelper.getInstance(requireContext()).clearData()
+                Navigation.findNavController(binding.root).navigate(
+                    R.id.action_nav_tidprocessone_to_nav_about
+                )
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 

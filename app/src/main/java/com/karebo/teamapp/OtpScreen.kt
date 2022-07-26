@@ -1,6 +1,8 @@
 package com.karebo.teamapp
 
 import android.content.Context
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -19,9 +21,11 @@ import com.karebo.teamapp.utils.LoaderHelper
 import com.the.firsttask.sharedpreference.SharedPreferenceHelper
 import com.the.firsttask.utils.ConstantHelper
 import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 
 class OtpScreen : Fragment() {
@@ -57,6 +61,7 @@ class OtpScreen : Fragment() {
 
         if(SharedPreferenceHelper.getInstance(requireContext()).getOtp()!="null"){
             binding.etOtp.setText(SharedPreferenceHelper.getInstance(requireContext()).getOtp())
+            loadMeter(binding.etOtp.text.toString(),root)
             loadJobCard(binding.etOtp.text.toString(),root)
             Log.e("TAG", "Stored PIN: "+SharedPreferenceHelper.getInstance(requireContext()).getOtp() )
 
@@ -67,7 +72,7 @@ class OtpScreen : Fragment() {
                 Toast.makeText(requireContext(),"Enter PIN", Toast.LENGTH_LONG).show()
             }
             else{
-
+                loadMeter(binding.etOtp.text.toString(),root)
                 loadJobCard(binding.etOtp.text.toString(),root)
 
 
@@ -99,6 +104,67 @@ class OtpScreen : Fragment() {
 ////        )
 //    }
 
+
+
+    fun loadMeter(otp:String,root:View){
+
+        val client = ApiClient()
+        val api = client.getClient()?.create(Api::class.java)
+        val call = api?.MeterList(otp.toInt(),true)
+        call?.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
+            ) {
+
+                if(response.isSuccessful){
+                    var statuscode=response.code()
+                    Log.e("TAG", "Statuscode of loadMeter " + statuscode)
+
+                    if(statuscode==200){
+
+                        SharedPreferenceHelper.getInstance(requireContext()).setAllMeterCode(response.body()?.string())
+                        Toast.makeText(requireContext(),"JobCard Loaded", Toast.LENGTH_SHORT)
+                            .show()
+                        Log.e("TAG", "loadMeter: "+response.body()?.string(), )
+
+                    }
+                    else    {
+                        LoaderHelper.dissmissLoader()
+                        Log.e("TAG", "loadMeter: "+response.body()?.string(), )
+                        Toast.makeText(requireContext(),"some error occured"+ response.body()?.string(), Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+
+                }
+                else{
+//                    Log.e("TAG", "AddToolBox :"+response.body()?.string(), )
+//                    Log.e("TAG", "AddToolBox :"+response.errorBody()?.string(), )
+                    LoaderHelper.dissmissLoader()
+                    Log.e("TAG", "loadMeter: "+response.errorBody()?.string(), )
+                    Toast.makeText(requireContext(),
+                        "some error occured "+response.errorBody()?.string(), Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                LoaderHelper.dissmissLoader()
+                Log.e("TAG", "onFailure: "+t.localizedMessage, )
+                Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+        })
+
+
+    }
+
+
+
+
      fun loadJobCard(otp:String,root:View) {
 
          LoaderHelper.showLoader(requireContext())
@@ -123,6 +189,8 @@ class OtpScreen : Fragment() {
 
 
                          compareAndSave(response.body()!!)
+
+
 //                         ConstantHelper.list= response.body()!!
 //
 //                         val JsonString: String =
@@ -256,10 +324,10 @@ class OtpScreen : Fragment() {
 
         body.forEach {
             if(!list.contains(it.jobCardId)){
-
                 newList.add(it)
             }
         }
+
 
 
 
@@ -274,4 +342,9 @@ class OtpScreen : Fragment() {
 
 
     }
+
+
+
+
+
 }

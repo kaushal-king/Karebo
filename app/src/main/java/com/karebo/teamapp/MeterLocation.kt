@@ -8,9 +8,7 @@ import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,6 +28,7 @@ import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.PolyUtil
 import com.karebo.teamapp.databinding.FragmentMeterLocationBinding
 import com.karebo.teamapp.dataclass.meterauditDataModel
+import com.the.firsttask.sharedpreference.SharedPreferenceHelper
 import com.the.firsttask.utils.ConstantHelper
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -56,6 +55,9 @@ class MeterLocation : Fragment() , OnMapReadyCallback, GoogleMap.OnMarkerClickLi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true);
+
         locationPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 if (!permissions.containsValue(false)) {
@@ -142,8 +144,8 @@ class MeterLocation : Fragment() , OnMapReadyCallback, GoogleMap.OnMarkerClickLi
          ConstantHelper.Components.put("MeterLocation",MeterLocation)
 //         ConstantHelper.meterModelJson.put("Components",ConstantHelper.Components)
 
-         Log.e("json at location", ConstantHelper.Components.toString(), )
-         Log.e("json at location", ConstantHelper.meterModelJson.toString(), )
+         Log.e("json at location", ConstantHelper.Components.toString())
+         Log.e("json at location", ConstantHelper.meterModelJson.toString())
 
 
     }
@@ -308,5 +310,52 @@ class MeterLocation : Fragment() , OnMapReadyCallback, GoogleMap.OnMarkerClickLi
 
         binding.etMapDescription.visibility=View.GONE
     }
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.drawer, menu)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_jobcard -> {
+                ConstantHelper. submitMeterDataJSON = JSONObject()
+                ConstantHelper. Meters = JSONObject()
+                ConstantHelper. meterModelJson = JSONObject()
+                ConstantHelper. Components = JSONObject()
+                ConstantHelper. Feedback = JSONObject()
+                ConstantHelper. photoList = mutableListOf()
+                ConstantHelper.Duration = JSONObject()
+
+                ConstantHelper.SERIAL =  ""
+                ConstantHelper. PropertyPictureUUID=""
+                ConstantHelper. ZeroTokenPictureUUID=""
+                ConstantHelper. TamperedWiresUUID=""
+                ConstantHelper. TamperedWires2UUID=""
+                ConstantHelper. TamperedWires3UUID=""
+                ConstantHelper. KRNPictureUUID=""
+                ConstantHelper. Last5TokenScreenshotUUID=""
+                Navigation.findNavController(binding.root).navigate(
+                    R.id.action_nav_meterlocation_to_nav_meteraudit
+                )
+                true
+            }
+            R.id.action_logout -> {
+
+                SharedPreferenceHelper.getInstance(requireContext()).clearData()
+                Navigation.findNavController(binding.root).navigate(
+                    R.id.action_nav_meterlocation_to_nav_about
+                )
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

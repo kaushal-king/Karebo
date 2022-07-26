@@ -36,8 +36,15 @@ class meterauditadapter(private val mList: List<meterauditDataModel>,
 //            val JsonString: String =
 //                GsonParser.gsonParser!!.toJson(mList[viewHolder.adapterPosition])
 //            bundle.putString("data", JsonString)
-            var address=findAddress(mList[viewHolder.adapterPosition])
-            ConstantHelper.ADDRESS=address
+
+            if(mList[viewHolder.adapterPosition].address==null){
+                var address=findAddress(mList[viewHolder.adapterPosition])
+                ConstantHelper.ADDRESS=address
+            }else{
+                ConstantHelper.ADDRESS= mList[viewHolder.adapterPosition].address.toString()
+            }
+
+
             ConstantHelper.currentSelectd=mList[viewHolder.adapterPosition]
             Navigation.findNavController(view2).navigate(
                 R.id.action_nav_meteraudit_to_nav_auditphoto
@@ -54,8 +61,14 @@ class meterauditadapter(private val mList: List<meterauditDataModel>,
 
         val item = mList[position]
 
-        var address=findAddress(item)
-        holder.address.text =address
+
+        if(item.address==null){
+            var address=findAddress(item)
+            holder.address.text =address
+        }else{
+            holder.address.text =item.address
+        }
+
 
 //        addresses = geocoder.getFromLocation(item.latitude as Double, item.longitude as Double, 1);
 //        if(addresses != null && !addresses.isEmpty()){
@@ -79,12 +92,17 @@ class meterauditadapter(private val mList: List<meterauditDataModel>,
 
     fun findAddress(listItem:meterauditDataModel):String
     {
-        var addresses: List<Address?>
+        var addresses: List<Address?> = listOf()
         var geocoder = Geocoder(mCtx, Locale.getDefault())
         var returnAddress:String
 
         val item = listItem
-        addresses = geocoder.getFromLocation(item.latitude as Double, item.longitude as Double, 1);
+        try {
+            addresses = geocoder.getFromLocation(item.latitude as Double, item.longitude as Double, 1);
+
+        }catch (e:Exception){
+
+        }
         if(addresses != null && !addresses.isEmpty()){
             var address=addresses[0]?.getAddressLine(0)
             address=address?.replace(", South Africa","")

@@ -318,7 +318,7 @@ class chartFragment : Fragment() {
 
             override fun onFailure(call: Call<CounterDataClass>, t: Throwable) {
                 LoaderHelper.dissmissLoader()
-                Toast.makeText(requireContext(), "Network Error", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), "Offline Mode", Toast.LENGTH_SHORT)
                     .show()
             }
 

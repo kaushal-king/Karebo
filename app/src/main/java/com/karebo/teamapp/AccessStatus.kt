@@ -8,9 +8,7 @@ import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -28,11 +26,15 @@ import com.karebo.teamapp.adapter.jobnumberAdapter
 import com.karebo.teamapp.databinding.FragmentAccessStatusBinding
 import com.karebo.teamapp.dataclass.CodeListDataClass
 import com.karebo.teamapp.dataclass.meterauditDataModel
+import com.karebo.teamapp.roomdata.RoomDb
+import com.karebo.teamapp.roomdata.mainbody
+import com.karebo.teamapp.roomdata.photobody
 
 import com.karebo.teamapp.utils.GsonParser
 import com.karebo.teamapp.utils.LoaderHelper
 import com.the.firsttask.sharedpreference.SharedPreferenceHelper
 import com.the.firsttask.utils.ConstantHelper
+import com.the.firsttask.utils.NetworkUtils
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 
@@ -43,7 +45,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class AccessStatus : Fragment() {
@@ -71,6 +72,7 @@ class AccessStatus : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         locationPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 if (!permissions.containsValue(false)) {
@@ -181,10 +183,16 @@ class AccessStatus : Fragment() {
 //            val JsonString: String =
 //                GsonParser.gsonParser!!.toJson(data)
 //            bundle.putString("data", JsonString)
-            addInModel()
-            Navigation.findNavController(root).navigate(
-                R.id.action_nav_accessstatus_to_nav_meterlocation
+            if(binding.spSiteStatus.selectedItemPosition==0){
+                Toast.makeText(requireContext(),"select site status",Toast.LENGTH_SHORT ).show()
+            }
+            else{
+                addInModel()
+                Navigation.findNavController(root).navigate(
+                    R.id.action_nav_accessstatus_to_nav_meterlocation
                 )
+            }
+
         }
         binding.spAccessStatus.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -271,6 +279,7 @@ class AccessStatus : Fragment() {
 
 
     fun addInModel() {
+
          var Access = JSONObject()
          var Location = JSONObject()
          var ContactInfo = JSONObject()
@@ -304,6 +313,8 @@ class AccessStatus : Fragment() {
 
 
          ConstantHelper.submitMeterDataJSON.put("Access",Access)
+
+
          Log.e("json at access", ConstantHelper.submitMeterDataJSON.toString())
 
      }
@@ -410,22 +421,39 @@ fun showConfirmDialog(root:View){
 
         LoaderHelper.showLoader(requireContext())
 
+        if(NetworkUtils.isConnected==false){
 
-        val client = ApiClient()
+            val photobodyDao=RoomDb.getAppDatabase((requireContext()))?.photobodydao()
+
+            ConstantHelper.photoList.forEach {
+
+//            requests.add( api?.addPhoto64(it.uuid,it.bodyy)!!)
+                photobodyDao?.addphotobody(photobody(it.uuid,it.bodyy))
+                Log.e("TAG", "addAllPhoto uuid: ${it.uuid}", )
+//            Log.e("TAG", "addAllPhoto body: ${it.bodyy}", )
+            }
+
+            LoaderHelper.dissmissLoader()
+            activity?.runOnUiThread {
+                submitMeter(root)
+
+            }
+
+        }else{
+
+            val client = ApiClient()
         val api = client.getClient()?.create(Api::class.java)
 
-//        val requests = ArrayList<Observable<*>>()
         val requests =  mutableListOf<Observable<ResponseBody>>()
 
-        ConstantHelper.photoList.forEach {
+            ConstantHelper.photoList.forEach {
 
-            requests.add( api?.addPhoto64(it.uuid,it.bodyy)!!)
-            Log.e("TAG", "addAllPhoto uuid: ${it.uuid}", )
-//            Log.e("TAG", "addAllPhoto body: ${it.bodyy}", )
-        }
+                requests.add( api?.addPhoto64(it.uuid,it.bodyy)!!)
+                Log.e("TAG", "addAllPhoto uuid: ${it.uuid}", )
+//               Log.e("TAG", "addAllPhoto body: ${it.bodyy}", )
+            }
 
 
-        Log.e("TAG", "requests: "+requests.toString() )
 
 
         Observable.merge(requests)
@@ -463,6 +491,34 @@ fun showConfirmDialog(root:View){
             )
 
 
+        }
+
+////        val client = ApiClient()
+////        val api = client.getClient()?.create(Api::class.java)
+////
+////
+////        val requests =  mutableListOf<Observable<ResponseBody>>()
+//
+//        val photobodyDao=RoomDb.getAppDatabase((requireContext()))?.photobodydao()
+//
+//        ConstantHelper.photoList.forEach {
+//
+////            requests.add( api?.addPhoto64(it.uuid,it.bodyy)!!)
+//            photobodyDao?.addphotobody(photobody(it.uuid,it.bodyy))
+//            Log.e("TAG", "addAllPhoto uuid: ${it.uuid}", )
+////            Log.e("TAG", "addAllPhoto body: ${it.bodyy}", )
+//        }
+//
+//        LoaderHelper.dissmissLoader()
+//                activity?.runOnUiThread {
+//                    submitMeter(root)
+//
+//                }
+
+        //Log.e("TAG", "requests: "+requests.toString() )
+
+//
+
 
 
     }
@@ -474,10 +530,38 @@ fun showConfirmDialog(root:View){
 
 
         LoaderHelper.showLoader(requireContext())
-        val client = ApiClient()
-        val api = client.getClient()?.create(Api::class.java)
+
        // Log.e("TAG", "submitMeter: "+ConstantHelper.submitMeterDataJSON.toString() )
-        val call = api?.submitMeter(ConstantHelper.submitMeterDataJSON.toString())
+
+        if(NetworkUtils.isConnected==false){
+            val mainbodyDao=RoomDb.getAppDatabase((requireContext()))?.mainbodydao()
+            mainbodyDao?.addMainBody(mainbody(ConstantHelper.currentSelectd.jobCardId.toString(),ConstantHelper.submitMeterDataJSON.toString()))
+
+
+            Toast.makeText(requireContext(),"successFull Added offline", Toast.LENGTH_SHORT)
+                .show()
+            Log.e("TAG", "submitmeter: offline ", )
+
+
+
+            setJobId()
+            LoaderHelper.dissmissLoader()
+            ConstantHelper. submitMeterDataJSON = JSONObject()
+            ConstantHelper. Meters = JSONObject()
+            ConstantHelper. meterModelJson = JSONObject()
+            ConstantHelper. Components = JSONObject()
+            ConstantHelper. Feedback = JSONObject()
+            ConstantHelper. photoList = mutableListOf()
+
+            Navigation.findNavController(root).navigate(
+                R.id.action_nav_accessstatus_to_nav_meteraudit
+            )
+
+        }
+        else{
+            val client = ApiClient()
+            val api = client.getClient()?.create(Api::class.java)
+            val call = api?.submitMeter2(ConstantHelper.submitMeterDataJSON.toString())
         call?.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(
                 call: Call<ResponseBody>,
@@ -512,7 +596,7 @@ fun showConfirmDialog(root:View){
                     else    {
                         LoaderHelper.dissmissLoader()
                         Log.e("TAG", "submitmeter2: "+response.body()?.string(), )
-                        Toast.makeText(requireContext(),"some error occured"+ response.body()?.string(), Toast.LENGTH_SHORT)
+                        Toast.makeText(requireContext(),"some error occured in api submeter"+ response.body()?.string(), Toast.LENGTH_SHORT)
                             .show()
                     }
 
@@ -523,8 +607,9 @@ fun showConfirmDialog(root:View){
 //                    Log.e("TAG", "AddToolBox :"+response.errorBody()?.string(), )
                     LoaderHelper.dissmissLoader()
                     Log.e("TAG", "submitmeter3: "+response.errorBody()?.string(), )
-                    Toast.makeText(requireContext(),
-                        "some error occured"+response.errorBody()?.string(), Toast.LENGTH_SHORT)
+                   Toast.makeText(requireContext(),
+                        response.code().toString()
+                                +" "+response.message(), Toast.LENGTH_SHORT)
                         .show()
                 }
 
@@ -538,6 +623,10 @@ fun showConfirmDialog(root:View){
             }
 
         })
+
+        }
+
+//
 
     }
 
@@ -579,5 +668,52 @@ fun showConfirmDialog(root:View){
 
         ConstantHelper.list=newList
 
+    }
+
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.drawer, menu)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_jobcard -> {
+                ConstantHelper. submitMeterDataJSON = JSONObject()
+                ConstantHelper. Meters = JSONObject()
+                ConstantHelper. meterModelJson = JSONObject()
+                ConstantHelper. Components = JSONObject()
+                ConstantHelper. Feedback = JSONObject()
+                ConstantHelper. photoList = mutableListOf()
+                ConstantHelper.Duration = JSONObject()
+
+                ConstantHelper.SERIAL =  ""
+                ConstantHelper. PropertyPictureUUID=""
+                ConstantHelper. ZeroTokenPictureUUID=""
+                ConstantHelper. TamperedWiresUUID=""
+                ConstantHelper. TamperedWires2UUID=""
+                ConstantHelper. TamperedWires3UUID=""
+                ConstantHelper. KRNPictureUUID=""
+                ConstantHelper. Last5TokenScreenshotUUID=""
+                Navigation.findNavController(binding.root).navigate(
+                    R.id.action_nav_accessstatus_to_nav_meteraudit
+                )
+                true
+            }
+            R.id.action_logout -> {
+
+                SharedPreferenceHelper.getInstance(requireContext()).clearData()
+                Navigation.findNavController(binding.root).navigate(
+                    R.id.action_nav_accessstatus_to_nav_about
+                )
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -11,7 +11,9 @@ import java.util.concurrent.TimeUnit
 
 
 class ApiClient {
-    val BASE_URL: String = "https://karebomobileapi.azurewebsites.net/api/"
+
+   //val BASE_URL: String = "https://karebomobileapi.azurewebsites.net/api/"
+   val BASE_URL: String = "https://egenymobiletest.azurewebsites.net/api/"
 
  private var retrofit: Retrofit? = null
 

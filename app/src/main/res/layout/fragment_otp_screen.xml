@@ -16,6 +16,7 @@
         android:fontFamily="@font/roboto_medium"
         android:gravity="left"
         android:hint="PIN"
+        android:inputType="numberDecimal"
         android:padding="@dimen/_8sdp"
         android:textSize="@dimen/_15sdp"
         app:layout_constraintStart_toStartOf="parent"

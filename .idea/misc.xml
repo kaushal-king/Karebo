@@ -48,7 +48,11 @@
         <entry key="..\:/Karebo/app/src/main/res/layout/layout_meteraudit.xml" value="0.176" />
         <entry key="..\:/Karebo/app/src/main/res/layout/layout_question.xml" value="0.15281385281385282" />
         <entry key="..\:/Karebo/app/src/main/res/layout/layout_signature.xml" value="0.1" />
+        <entry key="..\:/Karebo/app/src/main/res/layout/layout_submeter.xml" value="0.21052631578947367" />
         <entry key="..\:/Karebo/app/src/main/res/layout/nav_header_drawer.xml" value="0.14298245614035088" />
+        <entry key="..\:/Karebo/app/src/main/res/menu/activity_main_drawer.xml" value="0.13771929824561405" />
+        <entry key="..\:/Karebo/app/src/main/res/menu/drawer.xml" value="0.13771929824561405" />
+        <entry key="..\:/Karebo/app/src/main/res/menu/offline.xml" value="0.1618421052631579" />
       </map>
     </option>
   </component>

@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.vi8e.giant.AddressListActivity">
+    <item
+        android:id="@+id/offline_count"
+        android:orderInCategory="100"
+        android:title="0"
+        app:showAsAction="always" />
+</menu>

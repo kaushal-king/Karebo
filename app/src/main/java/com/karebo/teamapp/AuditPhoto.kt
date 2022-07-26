@@ -3,8 +3,6 @@ package com.karebo.teamapp
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -12,11 +10,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.util.Base64
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -33,22 +28,13 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.CancellationTokenSource
-import com.karebo.teamapp.Api.Api
-import com.karebo.teamapp.Api.ApiClient
 import com.karebo.teamapp.databinding.FragmentAuditPhotoBinding
-import com.karebo.teamapp.dataclass.meterauditDataModel
 import com.karebo.teamapp.dataclass.photoUploadDataClass
-import com.karebo.teamapp.utils.GsonParser
 import com.karebo.teamapp.utils.LoaderHelper
 import com.the.firsttask.sharedpreference.SharedPreferenceHelper
 import com.the.firsttask.utils.ConstantHelper
-import okhttp3.ResponseBody
 import org.json.JSONArray
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -82,6 +68,9 @@ class AuditPhoto : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+
+
         locationPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 if (!permissions.containsValue(false)) {
@@ -124,7 +113,7 @@ class AuditPhoto : Fragment() {
                 requestlocationPermission()
             }
         }
-        Log.e("TAG", "location: ", )
+        Log.e("TAG", "location: ")
         LoaderHelper.showLoader(requireContext())
         val cancellationTokenSource = CancellationTokenSource()
         fusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, cancellationTokenSource.token)
@@ -199,13 +188,18 @@ class AuditPhoto : Fragment() {
          Task.put("Project",ConstantHelper.currentSelectd.project)
          Task.put("Team",ConstantHelper.currentSelectd.team)
          Task.put("CardType",ConstantHelper.currentSelectd.cardType)
+         Task.put("ParcelAddress",findAddress(ConstantHelper.currentSelectd.latitude!!,ConstantHelper.currentSelectd.longitude!!))
          Task.put("Municipality",ConstantHelper.currentSelectd.municipality)
-
 
 
          ConstantHelper.submitMeterDataJSON.put("Task",Task)
 
-         Log.e("json at auditphoto", ConstantHelper.submitMeterDataJSON.toString(), )
+         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)
+         val formattedDate = sdf.format(Date())
+         Log.e("TAG", "addInModel:timestemp " + formattedDate)
+         ConstantHelper.Duration.put("Key",formattedDate)
+
+         Log.e("json at auditphoto", ConstantHelper.submitMeterDataJSON.toString())
     }
 
     private fun startCamera() {
@@ -328,7 +322,7 @@ class AuditPhoto : Fragment() {
 
         val base64Image: String = ConstantHelper.getBase64(mPhotoFile!!)
 
-        Log.e("TAG", "addAuditPhoto64: "+base64Image, )
+        Log.e("TAG", "addAuditPhoto64: " + base64Image)
 
         var body = JSONObject()
         var geoLocation = JSONObject()
@@ -348,7 +342,7 @@ class AuditPhoto : Fragment() {
 
         body.put("score",0)
 
-        Log.e("TAG", "addAuditPhoto body: "+body.toString(), )
+        Log.e("TAG", "addAuditPhoto body: " + body.toString())
 
         ConstantHelper.photoList.add( photoUploadDataClass( newUUID.toString(),body.toString()) )
         LoaderHelper.dissmissLoader()
@@ -475,6 +469,86 @@ class AuditPhoto : Fragment() {
     private fun locationPermission() {
         locationPermissionLauncher.launch(permission)
     }
+
+
+
+
+
+
+
+    fun findAddress(latitude:Double,longitude:Double):String
+    {
+        var addresses: List<Address?> = listOf()
+        var geocoder = Geocoder(requireContext(), Locale.getDefault())
+        var returnAddress:String
+
+        try {
+            addresses = geocoder.getFromLocation(latitude ,longitude , 1);
+
+        }catch (e:Exception){
+
+        }
+        if(addresses != null && !addresses.isEmpty()){
+            var address=addresses[0]?.getAddressLine(0)
+            address=address?.replace(", South Africa","")
+            address=address?.replace("South Africa","")
+            returnAddress=address!!
+        }
+        else{
+            returnAddress= "No Address on "+ "("+latitude+","+longitude+")";
+        }
+
+        return returnAddress
+
+
+    }
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.drawer, menu)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+         when (item.itemId) {
+            R.id.action_jobcard -> {
+                ConstantHelper. submitMeterDataJSON = JSONObject()
+                ConstantHelper. Meters = JSONObject()
+                ConstantHelper. meterModelJson = JSONObject()
+                ConstantHelper. Components = JSONObject()
+                ConstantHelper. Feedback = JSONObject()
+                ConstantHelper. photoList = mutableListOf()
+                ConstantHelper.Duration = JSONObject()
+
+                ConstantHelper.SERIAL =  ""
+                ConstantHelper. PropertyPictureUUID=""
+                ConstantHelper. ZeroTokenPictureUUID=""
+                ConstantHelper. TamperedWiresUUID=""
+                ConstantHelper. TamperedWires2UUID=""
+                ConstantHelper. TamperedWires3UUID=""
+                ConstantHelper. KRNPictureUUID=""
+                ConstantHelper. Last5TokenScreenshotUUID=""
+                Navigation.findNavController(binding.root).navigate(
+                    R.id.action_nav_auditphoto_to_nav_meteraudit
+                )
+                true
+            }
+            R.id.action_logout -> {
+                SharedPreferenceHelper.getInstance(requireContext()).clearData()
+                Navigation.findNavController(binding.root).navigate(
+                    R.id.action_nav_auditphoto_to_nav_about
+                )
+
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+       return super.onOptionsItemSelected(item);
+    }
+
 
 
 }

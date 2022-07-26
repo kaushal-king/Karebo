@@ -141,6 +141,16 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_meter_status_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
             <LinearLayout
                 android:id="@+id/ll_manufectre"
                 android:layout_width="match_parent"
@@ -259,6 +269,7 @@
                         android:id="@+id/sw_prepraid"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:checked="true"
                         />
 
                 </LinearLayout>
@@ -534,10 +545,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint=""
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:fontFamily="@font/roboto_medium"
                         android:gravity="left"
-                        android:text="22"
+                        android:text="0.0"
                         android:textColor="@color/black"
 
                         />
@@ -561,6 +572,9 @@
                 android:textColor="@color/black"
 
                 />
+
+        </LinearLayout>
+
 
             <Button
                 android:id="@+id/bt_next"
