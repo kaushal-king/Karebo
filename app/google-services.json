@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "12517059284",
+    "project_id": "karebo-2c7de",
+    "storage_bucket": "karebo-2c7de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12517059284:android:35c96ace643d6782c92941",
+        "android_client_info": {
+          "package_name": "com.karebo.teamapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12517059284-buqtl19915snmf0gv6p706kupqq4sgik.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.karebo.teamapp",
+            "certificate_hash": "16c2c458678255a5cf085a6e1d9acba8827fbfd5"
+          }
+        },
+        {
+          "client_id": "12517059284-5rd9kbs33ql0ijh26t1t25gatmnthn0k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPXK-cjUpxpFtLONiS8pN6C6qb9r3b5L4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12517059284-5rd9kbs33ql0ijh26t1t25gatmnthn0k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

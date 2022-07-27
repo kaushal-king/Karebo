@@ -23,6 +23,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.karebo.teamapp.Api.Api
 import com.karebo.teamapp.Api.ApiClient
 import com.karebo.teamapp.databinding.ActivityDrawerBinding
@@ -53,6 +56,8 @@ private lateinit var binding: ActivityDrawerBinding
     var notificationManager: NotificationManager? = null
     var channel: NotificationChannel? = null
 
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +66,7 @@ private lateinit var binding: ActivityDrawerBinding
      setContentView(binding.root)
 
         setSupportActionBar(binding.appBarDrawer.toolbar)
-
+        firebaseAnalytics = Firebase.analytics
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
