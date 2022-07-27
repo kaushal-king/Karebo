@@ -330,7 +330,8 @@ class TidProcessOne : Fragment() {
                 id: Long
             ) {
 
-                if(binding.spMeterStatus.selectedItemPosition ==3){
+                if(binding.spMeterStatus.selectedItemPosition ==3 ||
+                    binding.spMeterStatus.selectedItemPosition ==6){
                     binding.llMeterStatusResult.visibility=View.GONE
                 }
                 else {
@@ -494,7 +495,7 @@ class TidProcessOne : Fragment() {
 
     fun addInModel() {
 
-        if(binding.spMeterStatus.selectedItemPosition==3 &&
+        if(binding.spMeterStatus.selectedItemPosition==3 ||
             binding.spMeterStatus.selectedItemPosition==6){
             var TID = JSONObject()
             var code=findMeterCode()

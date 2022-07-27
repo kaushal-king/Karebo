@@ -102,7 +102,7 @@ class MeterAudit : Fragment() ,TabLayout.OnTabSelectedListener{
         val mainbodydao= RoomDb.getAppDatabase((requireContext()))?.mainbodydao()
         var count=  mainbodydao?.getAllMainBodyCount()
 
-        item.setTitle(count.toString());
+        item.setTitle("outbox"+" "+count.toString());
         super.onPrepareOptionsMenu(menu)
     }
 
