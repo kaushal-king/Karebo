@@ -75,7 +75,7 @@ class TidProcessOne : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
 
-    lateinit var photoname: String
+    var photoname: String?=null
 
     var spinnerManufacture: ArrayAdapter<String>? = null
     var SpinnerModel: ArrayAdapter<String>? = null

@@ -25,6 +25,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.crashlytics.ktx.setCustomKeys
 import com.google.firebase.ktx.Firebase
 import com.karebo.teamapp.Api.Api
 import com.karebo.teamapp.Api.ApiClient
@@ -111,8 +114,6 @@ private lateinit var binding: ActivityDrawerBinding
             }
 
         }
-
-
 
 
 

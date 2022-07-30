@@ -20,6 +20,12 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.karebo.teamapp.Api.Api
 import com.karebo.teamapp.Api.ApiClient
 import com.karebo.teamapp.adapter.jobnumberAdapter
@@ -56,8 +62,7 @@ class AccessStatus : Fragment() {
     var list:MutableList<String> = mutableListOf()
     private var adapter: jobnumberAdapter? = null
     var data=meterauditDataModel()
-
-
+//    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     var  locationn : Location? =null
 
@@ -96,7 +101,11 @@ class AccessStatus : Fragment() {
             inflater,container,false)
         val root: View = binding.root
 
-
+//        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
+//        val bundle = Bundle()
+//        bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "issue in call api")
+//        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "name")
+//        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.GENERATE_LEAD , bundle)
 
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
@@ -607,9 +616,17 @@ fun showConfirmDialog(root:View){
 //                    Log.e("TAG", "AddToolBox :"+response.errorBody()?.string(), )
                     LoaderHelper.dissmissLoader()
                     Log.e("TAG", "submitmeter3: "+response.errorBody()?.string(), )
+
+
+
+
+
+//                    Firebase.crashlytics.log(ConstantHelper.currentSelectd.jobCardId+" "+response.code().toString()
+//                            +" "+response.message())
                    Toast.makeText(requireContext(),
                         response.code().toString()
                                 +" "+response.message(), Toast.LENGTH_SHORT)
+
                         .show()
                 }
 

@@ -17,6 +17,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.crashlytics.ktx.setCustomKeys
+import com.google.firebase.ktx.Firebase
 import com.karebo.teamapp.Api.Api
 import com.karebo.teamapp.Api.ApiClient
 import com.karebo.teamapp.Drawer
@@ -53,6 +57,10 @@ var connected=false
 
     _binding = FragmentAboutBinding.inflate(inflater, container, false)
     val root: View = binding.root
+
+
+
+
 
 
         if(SharedPreferenceHelper.getInstance(requireContext()).getTeamKey()!="null"){
@@ -164,6 +172,7 @@ var connected=false
                             )
                         }
                         else{
+
                             findNavController(root).navigate(
                                 R.id.action_nav_about_to_nav_question,
                             )

@@ -181,7 +181,8 @@ class chartFragment : Fragment() {
 
             set1.setColors(
                 intArrayOf(R.color.green2),
-                requireContext()
+                context
+
             )
             set1.values = failedvalues
             set1.label = "Failed"

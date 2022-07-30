@@ -132,8 +132,8 @@ class OtpScreen : Fragment() {
                     else    {
                         LoaderHelper.dissmissLoader()
                         Log.e("TAG", "loadMeter: "+response.body()?.string(), )
-                        Toast.makeText(requireContext(),"some error occured"+ response.body()?.string(), Toast.LENGTH_SHORT)
-                            .show()
+//                        Toast.makeText(requireContext(),"some error occured"+ response.body()?.string(), Toast.LENGTH_SHORT)
+//                            .show()
                     }
 
 
@@ -143,9 +143,9 @@ class OtpScreen : Fragment() {
 //                    Log.e("TAG", "AddToolBox :"+response.errorBody()?.string(), )
                     LoaderHelper.dissmissLoader()
                     Log.e("TAG", "loadMeter: "+response.errorBody()?.string(), )
-                    Toast.makeText(requireContext(),
-                        "some error occured "+response.errorBody()?.string(), Toast.LENGTH_SHORT)
-                        .show()
+//                    Toast.makeText(requireContext(),
+//                        "some error occured "+response.errorBody()?.string(), Toast.LENGTH_SHORT)
+//                        .show()
                 }
 
             }
@@ -185,7 +185,7 @@ class OtpScreen : Fragment() {
                      if(statuscode==200){
 
                          Log.e("TAG", "onResponse: "+response.body().toString(), )
-                         SharedPreferenceHelper.getInstance(requireContext()).setOtp(otp)
+                         SharedPreferenceHelper.getInstance(context!!).setOtp(otp)
 
 
                          compareAndSave(response.body()!!)
